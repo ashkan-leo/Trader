@@ -1,17 +1,16 @@
 from contextlib import contextmanager
 import csv
 import datetime
-from model import *
+from pytrader.fundamentals.model import *
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import dateutil.relativedelta
-from model import Base, fundamentals, Equity
 
 
 @contextmanager
 def db_session():
-    #engine = create_engine('sqlite:///resource/fundamentals.sqlite')
+    # engine = create_engine('sqlite:///resource/fundamentals.sqlite')
     engine = create_engine('mysql://root@localhost/fundamentals')
     db_session = sessionmaker()
     db_session.configure(bind=engine)
@@ -30,17 +29,18 @@ def db_session():
 def query(*args):
     with db_session() as s:
         q = s.query(fundamentals.symbol).join(fundamentals.balance_sheet, fundamentals.income_statement,
-                                              fundamentals.asset_classification, \
+                                              fundamentals.asset_classification,
                                               fundamentals.cash_flow_statement, fundamentals.company_reference,
-                                              fundamentals.earnings_ratios, \
+                                              fundamentals.earnings_ratios,
                                               fundamentals.earnings_report, fundamentals.financial_statement_filing,
-                                              fundamentals.general_profile, \
+                                              fundamentals.general_profile,
                                               fundamentals.operation_ratios, fundamentals.share_class_reference,
                                               fundamentals.valuation, fundamentals.valuation_ratios).add_columns(
             *args)
     return q
 
-def get_fundamentals(query, date = datetime.date.today()):
+
+def get_fundamentals(query, date=datetime.date.today()):
     with db_session() as s:
         dmin = date - dateutil.relativedelta.relativedelta(months=3)
         dmax = date - dateutil.relativedelta.relativedelta(days=1)
@@ -52,10 +52,10 @@ def get_fundamentals(query, date = datetime.date.today()):
 
 
 def _to_date(str):
-        if str == 'None':
-            return None
+    if str == 'None':
+        return None
 
-            return datetime.strptime(str, "%Y-%m-%d").date()
+    return datetime.strptime(str, "%Y-%m-%d").date()
 
 
 def insert_equities():
