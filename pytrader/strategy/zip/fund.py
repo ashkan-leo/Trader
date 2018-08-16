@@ -1,15 +1,10 @@
-import numpy as np
 import pandas as pd
-from zipline._protocol import BarData
 from zipline.finance.execution import StopOrder
 from zipline.utils.events import date_rules, time_rules
 
-from pytrader.strategy.Strategy import Strategy
-from pytrader.strategy.dma import DMA
+from pytrader.strategy.zip.Strategy import Strategy
 from zipline.api import *
-import datetime
 import pickle
-import random
 from pytrader.fundamentals.dao import get_fundamentals, query
 from pytrader.fundamentals.model import fundamentals
 

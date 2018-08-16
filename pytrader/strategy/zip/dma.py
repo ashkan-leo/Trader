@@ -1,10 +1,6 @@
 from zipline.api import *
-import os
-from datetime import datetime
-from zipline import run_algorithm
-import pytz
 
-from pytrader.strategy.Strategy import Strategy
+from pytrader.strategy.zip.Strategy import Strategy
 
 
 class DMA(Strategy):

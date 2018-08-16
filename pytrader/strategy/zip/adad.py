@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 from zipline._protocol import BarData
 
-from pytrader.strategy.Strategy import Strategy
-from pytrader.strategy.dma import DMA
+from pytrader.strategy.zip.Strategy import Strategy
+from pytrader.strategy.zip.dma import DMA
 from zipline.api import *
 import datetime
 import pickle
-import random
+
 
 class AdaD(Strategy):
 
